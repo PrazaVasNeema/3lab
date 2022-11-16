@@ -1,73 +1,101 @@
 ﻿using System.Diagnostics;
 class Program{
 
+        public struct MyStruct // отличие от класса - ее нельзя наследовать, еще она не ссылочный тип, в структуре нельзя сразу инициализировать переменные
+        {
+            public int i;
+
+            public MyStruct(int i){
+                this.i = i;
+            }
+        }
+
+        class MyClass
+        {
+            // модификаторы доступа public - все через экземпляр этого класса
+            // private - только сам класс
+            private int i = 5;
+            private float f;
+            protected uint u;
+
+            public MyClass(int i)
+            {
+                this.i = 5;
+                f = 1f;
+                u = 1;
+            }
+
+            ~MyClass() // деструктор
+            {
+
+            }
+
+            public int GetInt()
+            {
+                return i;
+            }
+
+            public int GetInt(string key) // переопределение методов
+            {
+                return i;
+            }
+        }
 
 		static void Main(string[] args)
 		{
-            Console.Clear();
-			int[] array = new int[] {-3, 0, 2, 4, 5 };
-			int k = 6;
 
-			// Найти пару, дающую в сумме значение k
-			// Написать несколько решений этой задачи
-			// Определить самый быстрый способ, по количество затраченных итераций
-			int[] result = Calc(array, k);
+            int i;
+            MyClass myClass = new MyClass(5); // ссылка на ячейку памяти, класс будет жить до тех пор, пока существует на него ссылка
+            Console.WriteLine($"result: {myClass.GetInt()}");
+            myClass.GetInt = 5;
+            Console.WriteLine($"result: {myClass.GetInt()}");
 
+            MyStruct myStruct = new MyStruct(15);
+
+            MyStruct myStruct2 = myStruct; // произойдет копирование памяти
+
+            MyClass myClass2 = MyClass; // не копирование, класс возьмет ссылку на myClass (будет содержать ту же ячейку памяти)
+
+            myClass.GetInt = 5;
+            myClass2.GetInt = 10;
+            Console.WriteLine($"result: {myClass.GetInt()}"); // будет 10
+
+            Console.WriteLine($"result: {myStruct.i()}");
+            myStruct.i = 5;
+
+            myStruct2.i = 10;
+            Console.WriteLine($"result: {myStruct.i()}"); // будет 5
+
+            TestRun(out myStruct2.i, ref myStruct2.i, myStruct2.i); 
+            Console.WriteLine($"result: {myStruct2.i()}");
+
+            TestRunClass(MyClass2);
             
-			Console.WriteLine($"[{result[0]}, {result[1]}]");
+            Console.WriteLine($"result: {myClass2.i()}");
 
-            result = Calc2(array, k);
+            int i = 0;
+            TestRunObject(i); // боксинг - завернули не ссылочный тип в ссылочный
+//            TestRunObject("fgdgf");
+//            TestRunObject(myClass);
 
-            Console.WriteLine($"[{result[0]}, {result[1]}]");
+
 		}
 
-		static int[] Calc(int[] array, int k)
-		{
-            var time1 = new Stopwatch();
-            time1.Start();
-            int[] all_valid = new int[20];
-            for (int i = 0, s = 0; i <= array.Length - 2 && s < 1; i++)
-                for (int j = i + 1; j <= array.Length - 1 && s < 1; j++){
-                    if (array[i] + array[j] == k){
-                        all_valid[0] = array[i];
-                        all_valid[1] = array[j];
-                        s = 1;
-                    }
-            }
-            time1.Stop();
-            Console.WriteLine(time1.Elapsed);
-			return all_valid;
-		}
-        static int[] Calc2(int[] array, int k)
-		{
-            var time2 = new Stopwatch();
-            int[] all_valid = new int[20];
-            time2.Start();
-            ///
-            // индексы
-            int lt = 0; // первый, то есть левый
-            int rt = array.Length - 1; // второй, то есть правый
-            while (lt != rt)
-            {       
-                int cursum = array[lt] + array[rt];
-                if (cursum < k)
-                    lt++;
-                else if (cursum > k)
-                    rt--;
-                else // if (cursum == sum)
-                {
-                    all_valid[0] = array[lt];
-                    all_valid[1] = array[rt];
-                    time2.Stop();
-                    Console.WriteLine(time2.Elapsed);
-                    // Console.WriteLine(array[lt] + " " + array[rt]);
-                    return all_valid;
-                }
-            }
-            time2.Stop();
-            Console.WriteLine(time2.Elapsed);
-            Console.WriteLine("Таких элементов нет");
-            return all_valid;
+//		public void TestRun(int i) // вызывается копия
+        public void TestRun(out int i, ref int p, in int r) // out передаем ссылку на кусок памяти, при этом out нужно проинициализировать (дать значение), ref просто дает ссылку, ничено не обязывая, in ничего сделать с переменной не можем, позволяет защитить данные в структуре, следовательно, бесплатный вызов
+        {
+            i = 55;
+            p = 60;
         }
 
+        public static void TestRunClass(MyClass i)
+        {
+            cl.i = 35;
+        }
+
+        public static void TestRunObject(object obj) // object - ссылочный тип
+        {
+            int i = (int)obj; // анбоксинг
+            Console.WriteLine($"result: {i}");
+        }
 	}

@@ -28,3 +28,11 @@ T:\ConvoLine\Xlab\lab2\obj\Debug\net6.0\refint\TestCode.dll
 T:\ConvoLine\Xlab\lab2\obj\Debug\net6.0\TestCode.pdb
 T:\ConvoLine\Xlab\lab2\obj\Debug\net6.0\TestCode.genruntimeconfig.cache
 T:\ConvoLine\Xlab\lab2\obj\Debug\net6.0\ref\TestCode.dll
+C:\Projects\CarX\Дз\lab2\obj\Debug\net6.0\TestCode.csproj.AssemblyReference.cache
+C:\Projects\CarX\Дз\lab2\obj\Debug\net6.0\TestCode.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\CarX\Дз\lab2\obj\Debug\net6.0\TestCode.AssemblyInfoInputs.cache
+C:\Projects\CarX\Дз\lab2\obj\Debug\net6.0\TestCode.AssemblyInfo.cs
+C:\Projects\CarX\Дз\lab2\obj\Debug\net6.0\TestCode.csproj.CoreCompileInputs.cache
+C:\Projects\CarX\Дз\lab2\obj\Debug\net6.0\TestCode.dll
+C:\Projects\CarX\Дз\lab2\obj\Debug\net6.0\refint\TestCode.dll
+C:\Projects\CarX\Дз\lab2\obj\Debug\net6.0\TestCode.pdb
